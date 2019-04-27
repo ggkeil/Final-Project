@@ -8,7 +8,7 @@ Created on Sat Apr 27 10:58:02 2019
 import numpy as np
 import cv2
 imgname = "SingleMcDonaldsFries.jpg"          # query image (small object)
-imgname2 = "MultipleMcDonaldsFries.jpg" # train image (large scene)
+imgname2 = "MultipleMcDonaldsFries.jpg"       # train image (large scene)
 
 MIN_MATCH_COUNT = 4
 
