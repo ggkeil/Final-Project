@@ -8,8 +8,8 @@ Created on Sat Apr 27 10:58:02 2019
 import numpy as np
 import cv2
 
-imgname = "AmtrakAngled.jpg"          # query image (small object)
-imgname2 = "AmtrakRef.jpg"            # train image (large scene)
+imgname = "AmtrakRef.jpg"          # query image (small object)
+imgname2 = "AmtrakAngled.jpg"            # train image (large scene)
 
 MIN_MATCH_COUNT = 4
 
