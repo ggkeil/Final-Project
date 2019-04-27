@@ -7,17 +7,14 @@ Created on Sat Apr 27 10:58:02 2019
 
 import numpy as np
 import cv2
-<<<<<<< HEAD
-<<<<<<< HEAD
 
 imgname = "AmtrakAngled.jpg"          # query image (small object)
 imgname2 = "AmtrakRef.jpg"       # train image (large scene)
-=======
-=======
->>>>>>> parent of b463f3d... Added More Comments
+
+
 imgname = "SingleMcDonaldsFries.jpg"          # query image (small object)
 imgname2 = "MultipleMcDonaldsFries.jpg"       # train image (large scene)
->>>>>>> parent of b463f3d... Added More Comments
+
 
 MIN_MATCH_COUNT = 4
 
@@ -59,15 +56,11 @@ res = cv2.drawMatches(img1, kpts1, img2, kpts2, dmatches[:20],None,flags=2)
 
 resH, resW = res.shape[:2]
 
-<<<<<<< HEAD
-<<<<<<< HEAD
+
 # resize the resulting image
 resized = cv2.resize(res, (int(resW / 3.3), int(resH / 3.3)))
-=======
-=======
->>>>>>> parent of b463f3d... Added More Comments
+
 resized = cv2.resize(res, (int(resW / 2.7), int(resH / 2.7)))
->>>>>>> parent of b463f3d... Added More Comments
 
 cv2.imshow("orb_match", resized);
 
