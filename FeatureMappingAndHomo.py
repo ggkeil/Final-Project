@@ -75,39 +75,3 @@ def alignImages(img1, img2, numGoodMatches):
     cv2.destroyAllWindows()
     
 alignImages(img1, img2, 4)
-
-
-
-
-
-
-'''
-## find homography matrix and do perspective transform
-M, mask = cv2.findHomography(src_pts, dst_pts, cv2.RANSAC,5.0) # M is the homography matrix
-                                                               # not doing anything with mask at the moment
-h,w = img1.shape[:2] # height and width of the query image
-pts = np.float32([ [0,0],[0,h-1],[w-1,h-1],[w-1,0] ]).reshape(-1,1,2)
-dst = cv2.perspectiveTransform(pts,M)
-
-h2, w2 = img2.shape[:2] # height and width of the train image
-
-## draw found regions
-img2 = cv2.polylines(img2, [np.int32(dst)], True, (0,0,255), 1, cv2.LINE_AA) # draw on the train image
-resizedimg2 = cv2.resize(img2, (int(w2 / 1.5), int(h2 / 1.5))) # resize the found regions to fit the screen
-cv2.imshow("found", img2) # show the found region
-
-## draw match lines
-# Basically, the similar features are pointed out
-res = cv2.drawMatches(img1, kpts1, img2, kpts2, dmatches[:20],None,flags=2)
-
-resH, resW = res.shape[:2]
-
-# resize the resulting image to fit on laptop screen
-resized = cv2.resize(res, (int(resW / 3.3), int(resH / 3.3)))
-
-# show the resulting image
-cv2.imshow("orb_match", resized)
-
-cv2.waitKey()
-cv2.destroyAllWindows()
-'''
