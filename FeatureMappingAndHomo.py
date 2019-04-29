@@ -4,7 +4,7 @@ import numpy as np
 import cv2
 
 ## Create ORB object
-orb = cv2.ORB_create()
+orb = cv2.ORB_create() # number passed is number of features created (default = 500)
 #img1 = cv2.imread(r'AmtrakRef.jpg') # query image (small object)
 #img1 = cv2.imread(r'AmtrakRef2.png') # query image (small object)
 #img2 = cv2.imread(r'AmtrakAngled.jpg') # train image (large scene)
