@@ -12,38 +12,39 @@ def imageStitcher(img1Location, img2Location):
     img1 = cv2.imread(img1Location) # image to be transformed
     img2 = cv2.imread(img2Location) # image to be referenced (Not transformed)
 
-
-    #Change Colorspace from BGR to Grayscale
-    gray1 = cv2.cvtColor(img1, cv2.COLOR_BGR2GRAY)
-    gray2 = cv2.cvtColor(img2, cv2.COLOR_BGR2GRAY)
-
     ## Find the keypoints and descriptors with ORB
-    kpts1, descs1 = orb.detectAndCompute(gray1,None)
-    kpts2, descs2 = orb.detectAndCompute(gray2,None)
+    kpts1, descs1 = orb.detectAndCompute(img1,None)
+    kpts2, descs2 = orb.detectAndCompute(img2,None)
 
     ## match descriptors and sort them in the order of their distance
     bf = cv2.BFMatcher(cv2.NORM_HAMMING, crossCheck=True) #bf = created Brute-Force object. BFMatcher = Brute-Force Matcher
-    matches = bf.match(descs1, descs2) #finds matches in the descripters for set [arg1] and set [arg2]
-    dmatches = sorted(matches, key = lambda x:x.distance) #sorts the matches based on their distances
+                                                            #cv2.NORM_HAMMING uses the hamming distance for the distance measurement
+                                                            #crossCheck = True makes the matcher to return the results that best match
+    matches = bf.match(descs1, descs2) #finds suitable matches between descs1 and descs2
+                                        #The matching parameters are based on cv2.BFMatcher
+    sortedmatches = sorted(matches, key = lambda x:x.distance) #sorts the matches based on their distances, such that the best matches are the earliest entries
 
     ## extract the matched keypoints
-    src_pts  = np.float32([kpts1[m.queryIdx].pt for m in dmatches]).reshape(-1,1,2)
-    dst_pts  = np.float32([kpts2[m.trainIdx].pt for m in dmatches]).reshape(-1,1,2)
+    #Basically, for all the sortedmatches (which contain the best matches), find the respective src_pts and dst_pts
+    src_pts  = np.float32([kpts1[m.queryIdx].pt for m in sortedmatches]).reshape(-1,1,2)
+    dst_pts  = np.float32([kpts2[m.trainIdx].pt for m in sortedmatches]).reshape(-1,1,2)
 
-    ## find homography matrix and do perspective transform
-    M, _ = cv2.findHomography(src_pts, dst_pts, cv2.RANSAC,5.0) #Note the homography Matrix M needs at least 4 matches
-    print("Matrix M", M)
+    ## Create an single image with both Img1 and Img2 side-by-side, with the matches drawn in between them.
+    imageMatches = cv2.drawMatches(img1, kpts1, img2, kpts2, sortedmatches[:20],None,flags=2) #We drawn only the best 20 matches from sorteddmatches
+    cv2.namedWindow('ORB Matches', cv2.WINDOW_KEEPRATIO)
+    cv2.imshow("ORB Matches", imageMatches)
+
+    ## find homography matrix
+    PTrans, _ = cv2.findHomography(src_pts, dst_pts, cv2.RANSAC,10.0) #PTrans is Perspective Transformation between the source and the destination
+    #We're using RANSAC to handle outliers and mismatched pairs, we set it for 10.0 loops of it
+    #Note the homography Matrix PTrans needs at least 4 matches (from sortedmatches)
 
     ## #Draw the lines of where Image 1 "should be" on Image 2.
     #img2 = cv2.polylines(img2, [np.int32(dst)], True, (180,105,255), 10, cv2.LINE_AA)
-
-    ## Create an single image with both Img1 and Img2 side-by-side, with the matches drawn in between them.
-    res = cv2.drawMatches(img1, kpts1, img2, kpts2, dmatches[:20],None,flags=2)
-    cv2.namedWindow('ORB Matches', cv2.WINDOW_KEEPRATIO)
-    cv2.imshow("ORB Matches", res)
-
+    
+    #Perform the Perspective Transformation on Image 1.
     img2H, img2W = img2.shape[:2]
-    finalImage = cv2.warpPerspective(img1, M, (int(img2W*2), int(img2H*1.5)) )
+    finalImage = cv2.warpPerspective(img1, PTrans, (int(img2W*2), int(img2H*1.5)) )
     finalImage[0:img2.shape[0], 0:img2.shape[1]] = img2
     return finalImage
 
@@ -124,11 +125,11 @@ def HSV_Equalize(image):
     return eq_image
 
 # Stitching part
-#img1Loc = r'Trump_Middle.jpg'
-#img2Loc = r'Trump_Right.jpg'
-#img3Loc = r'Trump_Left.jpg'
-img1Loc = r'Zion_Right_90Degrees.jpg'
-img2Loc = r'Zion_Middle.jpg'
+img1Loc = r'Trump_Middle.jpg'
+img2Loc = r'Trump_Right.jpg'
+img3Loc = r'Trump_Left.jpg'
+#img1Loc = r'Zion_Right_90Degrees.jpg'
+#img2Loc = r'Zion_Middle.jpg'
 #img1Loc = r'Rocket2.png'
 #img2Loc = r'Rocket1_Big.png'
 
@@ -140,7 +141,7 @@ cv2.imshow("imgOut1", imgOut1)
 
 imgOutLoc = 'imgOut1.jpg'
 cv2.imwrite(imgOutLoc, imgOut1)
-'''
+''''''
 imgOut2 = imageStitcher(imgOutLoc, img3Loc)
 cv2.namedWindow('imgOut2', cv2.WINDOW_NORMAL)
 cv2.imshow("imgOut2", imgOut2)
@@ -151,7 +152,7 @@ cv2.imwrite(imgOutLoc2, imgOut2)
 
 # End of stitching part
 imgCrop = cv2.imread(imgOutLoc2)
-'''
+''''''
 '''
 # Show the cropped and sitched image
 cropped = crop(imgOut1)
