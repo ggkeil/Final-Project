@@ -2,10 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="63d23dac-6dc2-4b37-be5e-6b0fc9b214ee" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/FeatureMappingAndHomo.py" beforeDir="false" afterPath="$PROJECT_DIR$/FeatureMappingAndHomo.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/imgOut1.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/imgOut1.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/imgOut2.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/imgOut2.jpg" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -18,12 +16,13 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/FeatureMappingAndHomo.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="287">
-              <caret line="46" column="33" selection-start-line="46" selection-start-column="33" selection-end-line="46" selection-end-column="33" />
+            <state relative-caret-position="39">
+              <caret line="129" selection-start-line="129" selection-end-line="129" />
               <folding>
                 <element signature="e#53#71#0" expanded="true" />
                 <element signature="e#2331#6199#0" />
                 <element signature="e#6230#6848#0" />
+                <element signature="e#8580#9066#0" />
               </folding>
             </state>
           </provider>
@@ -171,29 +170,19 @@
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
     </layout>
   </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/FeatureMappingAndHomo.py</url>
-          <line>8</line>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
-  </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/ORBExample.py">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/FeatureMappingAndHomo.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="287">
-          <caret line="46" column="33" selection-start-line="46" selection-start-column="33" selection-end-line="46" selection-end-column="33" />
+        <state relative-caret-position="39">
+          <caret line="129" selection-start-line="129" selection-end-line="129" />
           <folding>
             <element signature="e#53#71#0" expanded="true" />
             <element signature="e#2331#6199#0" />
             <element signature="e#6230#6848#0" />
+            <element signature="e#8580#9066#0" />
           </folding>
         </state>
       </provider>
